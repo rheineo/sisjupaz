@@ -26,6 +26,8 @@
       "resources": {
         "files": [
           "/assets/**",
+          "/assets/icons/**",
+          "/assets/animate.css",
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
