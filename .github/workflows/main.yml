@@ -10,9 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-      - name: Install Angular CLI (if necessary)
+      - name: Install Angular CLI globally
+        run: npm install -g @angular/cli
+
+      - name: Install Angular CLI
         uses: actions/setup-node@v2
         with:
           node-version: 18
@@ -24,12 +27,12 @@ jobs:
       - name: Build application
         run: ng build
 
-      - name: Create deployment directory (if needed)
-        run: mkdir -p dist/sisjupaz  # Adjust path if necessary
+      - name: Create deployment directory
+        run: mkdir -p dist/sisjupaz
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages
-          folder: ./dist/sisjupaz  # Using relative path
+          folder: ./dist/sisjupaz
           token: ${{ secrets.GITHUB_TOKEN }}
