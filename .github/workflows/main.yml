@@ -31,7 +31,7 @@ jobs:
         run: ng build
 
       - name: Deploy to GitHub Pages
-        uses: rheineo/sisjupaz
+        uses: rheineo/sisjupaz@4.1.1
         with:
           branch: gh-pages
           folder: dist/sisjupaz
