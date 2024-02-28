@@ -28,7 +28,7 @@ jobs:
         run: ng build
 
       - name: Build application for production
-        run: ng build --prod
+        run: ng build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.1
