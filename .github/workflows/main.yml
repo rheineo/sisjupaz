@@ -27,12 +27,12 @@ jobs:
       - name: Build application
         run: ng build
 
-      - name: Build application for production
-        run: ng build
+      - name: Create deployment directory
+        run: mkdir -p dist/sisjupaz
 
       - name: Deploy to GitHub Pages
-        uses: rheineo/sisjupaz@4.1.1
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages
-          folder: dist/sisjupaz
+          folder: ./dist/sisjupaz
           token: ${{ secrets.GITHUB_TOKEN }}
