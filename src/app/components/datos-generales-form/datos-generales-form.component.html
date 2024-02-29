@@ -1,0 +1,58 @@
+<div class="form-container">
+
+<form [formGroup]="datosGeneralesForm" (ngSubmit)="onSubmit()">
+
+  <!-- Número de Documento -->
+  <label for="numeroDocumento">Número de Documento:</label>
+  <input formControlName="numeroDocumento" id="numeroDocumento" type="text" required>
+
+  <!-- Tipo de Documento -->
+  <label for="tipoDocumento">Tipo de Documento:</label>
+  <select formControlName="tipoDocumento" id="tipoDocumento" required>
+    <option value="">Seleccione uno</option>
+    <option value="DNI">DNI</option>
+    <option value="carnetExtranjeria">Carnet de Extranjería</option>
+    <option value="pasaporte">Pasaporte</option>
+  </select>
+
+  <!-- Lengua Materna -->
+  <label for="lenguaMaterna">Lengua Materna:</label>
+  <input formControlName="lenguaMaterna" id="lenguaMaterna" type="text" required>
+
+  <!-- Otro Idioma -->
+  <label for="otroIdioma">Otro Idioma:</label>
+  <input formControlName="otroIdioma" id="otroIdioma" type="text">
+
+  <!-- Datos Telefónicos -->
+  <label for="datosTelefonicos">Datos Telefónicos:</label>
+  <input formControlName="datosTelefonicos" id="datosTelefonicos" type="tel" required>
+
+  <!-- Correo Electrónico -->
+  <label for="correoElectronico">Correo Electrónico:</label>
+  <input formControlName="correoElectronico" id="correoElectronico" type="email" required>
+
+  <!-- Auto Identificación Étnica -->
+  <label for="autoIdentificacionEtnica">Auto Identificación Étnica:</label>
+  <input formControlName="autoIdentificacionEtnica" id="autoIdentificacionEtnica" type="text" required>
+
+  <!-- Grado de Educación -->
+  <label for="gradoEducacion">Grado de Educación:</label>
+  <input formControlName="gradoEducacion" id="gradoEducacion" type="text" required>
+
+  <!-- Tipo de Comunidad -->
+  <label for="tipoComunidad">Tipo de Comunidad:</label>
+  <select formControlName="tipoComunidad" id="tipoComunidad" required>
+    <option value="">Seleccione uno</option>
+    <option value="comunidadCampesina">Comunidad Campesina</option>
+    <option value="comunidadNativa">Comunidad Nativa</option>
+    <option value="rondaCampesina">Ronda Campesina</option>
+    <option value="ninguna">Ninguna</option>
+  </select>
+
+  <!-- Opción de Discapacidad -->
+  <label for="discapacidad">Discapacidad:</label>
+  <input formControlName="discapacidad" id="discapacidad" type="checkbox">
+
+  <button type="submit" [disabled]="datosGeneralesForm.invalid">Enviar</button>
+</form>
+</div>

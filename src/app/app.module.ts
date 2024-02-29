@@ -7,18 +7,24 @@ import { AppComponent } from './app.component';
 import { GeneralComponent } from './pages/general/general.component';
 import { DetalleComponent } from './pages/detalle/detalle.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { DatosGeneralesFormComponent } from './components/datos-generales-form/datos-generales-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DatosGeneralesPageComponent } from './pages/datos-generales-page/datos-generales-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GeneralComponent,
-    DetalleComponent
+    DetalleComponent,
+    DatosGeneralesFormComponent,
+    DatosGeneralesPageComponent
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
