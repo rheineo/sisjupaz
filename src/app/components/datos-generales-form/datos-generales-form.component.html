@@ -53,6 +53,18 @@
   <label for="discapacidad">Discapacidad:</label>
   <input formControlName="discapacidad" id="discapacidad" type="checkbox">
 
+<label for="imagen">Imagen:</label>
+<input type="file" id="imagen" accept="image/*" (change)="onFileSelect($event, 'imagen')">
+
+<label for="pdf">PDF:</label>
+<input type="file"  id="pdf" accept="application/pdf" (change)="onFileSelect($event, 'pdf')">
+
+<label for="doc">Documento (DOC):</label>
+<input type="file"  id="doc" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" (change)="onFileSelect($event, 'doc')">
+
+<label for="excel">Excel:</label>
+<input type="file" id="excel" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onFileSelect($event, 'excel')">
+
   <button type="submit" [disabled]="datosGeneralesForm.invalid">Enviar</button>
 </form>
 </div>
