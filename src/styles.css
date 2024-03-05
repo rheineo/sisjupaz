@@ -2,3 +2,16 @@
 .bandera {
     height: 150px;
 }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: gainsboro;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
