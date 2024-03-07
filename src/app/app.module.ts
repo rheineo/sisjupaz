@@ -10,6 +10,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+
 
 import { AppComponent } from './app.component';
 import { GeneralComponent } from './pages/general/general.component';
@@ -19,6 +26,8 @@ import { DatosGeneralesFormComponent } from './components/datos-generales-form/d
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatosGeneralesPageComponent } from './pages/datos-generales-page/datos-generales-page.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegistroCasoJudicialComponent } from './components/registro-caso-judicial/registro-caso-judicial.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -29,7 +38,8 @@ import { LoginComponent } from './components/login/login.component';
     DetalleComponent,
     DatosGeneralesFormComponent,
     DatosGeneralesPageComponent,
-    LoginComponent
+    LoginComponent,
+    RegistroCasoJudicialComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +47,18 @@ import { LoginComponent } from './components/login/login.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatAutocompleteModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatStepperModule,
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
@@ -52,7 +68,8 @@ import { LoginComponent } from './components/login/login.component';
     BrowserAnimationsModule,
   ],
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } }
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
