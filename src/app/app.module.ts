@@ -16,7 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 import { AppComponent } from './app.component';
 import { GeneralComponent } from './pages/general/general.component';
@@ -59,6 +59,8 @@ import { DatePipe } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    NgxMatFileInputModule,
+    
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
