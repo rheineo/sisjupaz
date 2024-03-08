@@ -1,7 +1,9 @@
 <mat-stepper linear #stepper>
+
+
     <mat-step [stepControl]="juzgadoFormGroup">
         <form [formGroup]="juzgadoFormGroup">
-            <ng-template matStepLabel>juzgado y juez</ng-template>
+            <ng-template matStepLabel>{{steps[0].label}}</ng-template>
             <h4 class="texto-titulo">
                 Juzgado
             </h4>
@@ -70,7 +72,7 @@
     </mat-step>
     <mat-step [stepControl]="datosSolicitudFormGroup">
         <form [formGroup]="datosSolicitudFormGroup">
-            <ng-template matStepLabel>Datos de solicitud</ng-template>
+            <ng-template matStepLabel>{{steps[1].label}}</ng-template>
 
             <h4 class="texto-titulo">
                 No. Expediente:
@@ -87,7 +89,7 @@
                 <mat-grid-tile>
                     <mat-form-field class="mat-form-field">
                         <mat-label>Tipo de Proceso</mat-label>
-                        <mat-select formControlName="tipoProceso" [disabled]="false">
+                        <mat-select formControlName="tipoProceso">
                             <mat-option>Seleccione</mat-option>
                             <mat-option *ngFor="let item of lstTipoProceso" [value]="item.value">
                                 {{item.name}}
@@ -120,19 +122,38 @@
                 Ficha de valoración de riesgo (FVR)
             </h4>
 
+            <div>
+                <div class="dropzone">
+                    <div class="text-wrapper">
+                        <div class="centered">
+                            <label for="fileInput">
+                                <div><mat-icon (click)="onFileSelected2($event)" [color]="color"
+                                        style="cursor: pointer">upload</mat-icon></div>
+                                <div class="texto-link">Seleccionar archivo</div>
+                            </label>
+                            <input type="file" id="fileInput" (change)="onFileSelected2($event)">
 
-            <ngx-mat-file-input #removableInput [formControl]="fileControl" (change)="onFileSelected()"
-                [multiple]="multiple" [accept]="accept" [color]="color">                
-            </ngx-mat-file-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-            <ul *ngFor="let file of files">
-                <li>
-                    <mat-icon [color]="color">description</mat-icon>
-                    {{file.name}}
-                    <mat-icon (click)="onDelete(file)" [color]="color" style="cursor: pointer">delete</mat-icon>
-                </li>
-            </ul>
+            <!-- <ngx-mat-file-input #removableInput [formControl]="fileControl" (change)="onFileSelected()"
+                [multiple]="multiple" [accept]="accept" [color]="color">
+            </ngx-mat-file-input> -->
+
+            <div class="container-archivos">
+                <ul *ngFor="let file of files" class="lista-archivos">
+                    <div class="cuadro-azul">
+                        <li class="archivo">
+                            <mat-icon [color]="color">description</mat-icon>
+                            <span style="margin-right: 20px;">{{file.name}}</span>
+                            <mat-icon (click)="onDelete(file)" [color]="color" class="icono-delete">clear</mat-icon>
+                        </li>
+                    </div>
+                </ul>
+            </div>
 
             <div class="buttons-footer">
                 <div class="left-buttons">
@@ -147,12 +168,228 @@
         </form>
     </mat-step>
 
+    <mat-step [stepControl]="datosInvolucradosFormGroup">
+        <form [formGroup]="datosInvolucradosFormGroup">
+            <ng-template matStepLabel>{{steps[2].label}}</ng-template>
+
+            <h4 class="texto-titulo">
+                Datos denunciante
+            </h4>
+            <mat-grid-list cols="4" rowHeight="3:1">
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Nombres Denunciante</mat-label>
+                        <input matInput formControlName="nombreDenunciante" placeholder="Nombres del denunciante">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Apellidos Denunciante</mat-label>
+                        <input matInput formControlName="apellidoDenunciante" placeholder="Apellidos del denunciante">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Tipo de Documento</mat-label>
+                        <mat-select formControlName="tipoDocumentoDenunciante">
+                            <mat-option>Seleccione</mat-option>
+                            <mat-option *ngFor="let item of lstTipoDocumento" [value]="item.value">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Número de Documento de Identidad</mat-label>
+                        <input matInput formControlName="numeroDocumentoDenunciante"
+                            placeholder="Número de Documento de Identidad">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <h4 class="texto-titulo">
+                Datos denunciado
+            </h4>
+            <mat-grid-list cols="4" rowHeight="3:1">
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Nombres Denunciado</mat-label>
+                        <input matInput formControlName="nombreDenunciado" placeholder="Nombres del Denunciado">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Apellidos Denunciado</mat-label>
+                        <input matInput formControlName="apellidoDenunciado" placeholder="Apellidos del Denunciado">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Tipo de Documento</mat-label>
+                        <mat-select formControlName="tipoDocumentoDenunciado">
+                            <mat-option>Seleccione</mat-option>
+                            <mat-option *ngFor="let item of lstTipoDocumento" [value]="item.value">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field class="mat-form-field">
+                        <mat-label>Número de Documento de Identidad</mat-label>
+                        <input matInput formControlName="numeroDocumentoDenunciado"
+                            placeholder="Número de Documento de Identidad">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+            <div class="buttons-footer">
+                <div class="left-buttons">
+                    <button mat-stroked-button color="primary" matStepperPrevious>Atrás</button>
+                </div>
+
+                <div class="right-buttons">
+                    <button mat-stroked-button color="primary" (click)="stepper.reset()">Cancelar</button>
+                    <button mat-raised-button color="primary" class="mdc-button mx-4" matStepperNext>Siguiente</button>
+                </div>
+            </div>
+        </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="actividadesProcesalFormGroup">
+        <form [formGroup]="actividadesProcesalFormGroup">
+            <ng-template matStepLabel>{{steps[3].label}}</ng-template>
+
+            <h4 class="texto-titulo">
+                Actividades Procesales
+            </h4>
+            <div class="d-flex justify-content-end">
+                <div (click)="agregarActividadProcesal()">
+                    <mat-icon [color]="color" class="cursor-pointer">add</mat-icon>
+                    <span class="texto-link">Agregar actividad procesal</span>
+                </div>
+            </div>
+
+            <div *ngFor="let actividad of actividadesProcesales; let i = index" class="actividad-procesal"
+                id="actividad-{{i}}">
+                <mat-form-field class="mat-form-field w-25">
+                    <mat-label>Fecha Procesal</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fecha">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="w-100" appearance="fill">
+                    <mat-label>Actividad Procesal</mat-label>
+                    <textarea matInput formControlName="actividadProcesal" maxlength="100"
+                        placeholder="Ingrese actividades procesales. (Máximo 1000 caracteres)"></textarea>
+                </mat-form-field>
+                <div class="d-flex justify-content-end">
+                    <small>{{ actividad.get('actividadProcesal')?.value?.length }}/100</small>
+
+                    <div (click)="eliminarActividadProcesal(i)" *ngIf="actividadesProcesales.length > 1" color="warn">
+                        <mat-icon color="warn" class="cursor-pointer">delete</mat-icon>
+                        <span class="texto-link red">Eliminar actividad procesal</span>
+                    </div>
+
+
+                    <!-- <button mat-icon-button *ngIf="actividadesProcesales.length > 1" color="warn"
+                        (click)="eliminarActividadProcesal(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button> -->
+                </div>
+
+            </div>
+
+            <h4 class="texto-titulo">
+                Documentos Procesales
+            </h4>
+
+            <div>
+                <div class="dropzone">
+                    <div class="text-wrapper">
+                        <div class="centered">
+                            <label for="documentoProcesal">
+                                <div><mat-icon (click)="onFileSelected2($event)" [color]="color"
+                                        style="cursor: pointer">upload</mat-icon></div>
+                                <div class="texto-link">Seleccionar archivo</div>
+                            </label>
+                            <input type="file" id="documentoProcesal" multiple (change)="onFileSelected2($event)">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <ngx-mat-file-input #removableInput [formControl]="fileControl" (change)="onFileSelected()"
+                                        [multiple]="multiple" [accept]="accept" [color]="color">
+                                    </ngx-mat-file-input> -->
+
+            <div class="container-archivos">
+                <ul *ngFor="let file of files" class="lista-archivos">
+                    <div class="cuadro-azul">
+                        <li class="archivo">
+                            <mat-icon [color]="color">description</mat-icon>
+                            <span style="margin-right: 20px;">{{file.name}}</span>
+                            <mat-icon (click)="onDelete(file)" [color]="color" class="icono-delete">clear</mat-icon>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <!--
+            <ngx-mat-file-input #removableInput [formControl]="fileControl" (change)="onFileSelected()"
+                [multiple]="multiple" [accept]="accept" [color]="color">
+            </ngx-mat-file-input>
+
+            <ul *ngFor="let file of files">
+                <li>
+                    <mat-icon [color]="color">description</mat-icon>
+                    {{file.name}}
+                    <mat-icon (click)="onDelete(file)" [color]="color" style="cursor: pointer">delete</mat-icon>
+                </li>
+            </ul>
+        -->
+
+            <div class="buttons-footer">
+                <div class="left-buttons">
+                    <button mat-stroked-button color="primary" matStepperPrevious>Atrás</button>
+                </div>
+
+                <div class="right-buttons">
+                    <button mat-stroked-button color="primary" (click)="stepper.reset()">Cancelar</button>
+                    <button mat-raised-button color="primary" class="mdc-button mx-4" matStepperNext>Siguiente</button>
+                </div>
+            </div>
+            
+        </form>
+    </mat-step>
+
+
+
     <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
+        <ng-template matStepLabel>{{steps[4].label}}</ng-template>
+
+
+        
+        <div class="buttons-footer">
+            <div class="left-buttons">
+                <button mat-stroked-button color="primary" matStepperPrevious>Atrás</button>
+            </div>
+        
+            <div class="right-buttons">
+                <button mat-stroked-button color="primary" (click)="stepper.reset()">Cancelar</button>
+                <button mat-raised-button color="primary" class="mdc-button mx-4" matStepperNext>Siguiente</button>
+            </div>
+        </div>
+        <div class="buttons-footer">
+            <div class="right-buttons">
+                <button mat-stroked-button color="primary" (click)="stepper.reset()">Finalizar</button>
+            </div>
         </div>
     </mat-step>
 </mat-stepper>

@@ -31,7 +31,7 @@
 }
 
 .buttons-footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     right: 0;
     display: flex;
@@ -42,6 +42,20 @@
 
 .mat-form-field {
     width: 80%;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.mat-form-field.w-25 {
+    width: 25%;
+}
+
+.mat-form-field.w-100 {
+    width: 100%;
+}
+
+.mat-form-field-fecha-precesal {
+    width: 20%;
     display: block;
     margin-bottom: 4px;
 }
@@ -72,8 +86,18 @@
 ::ng-deep .mdc-notched-outline {
     height: 40px !important;
 }
-
+/*
 ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 40px !important;
+}
+*/
+
+::ng-deep .mat-mdc-text-field-wrapper textarea.mat-input-element {
+    height: auto !important;
+}
+
+/* Estilos específicos para input text dentro de mat-mdc-text-field-wrapper */
+::ng-deep .mat-mdc-text-field-wrapper input.mat-input-element {
     height: 40px !important;
 }
 
@@ -81,6 +105,67 @@ li {
     list-style: none;
 }
 
+input[type="file"]{
+  display:none;
+}
 
+.text-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
 
+.centered {
+    font-family: sans-serif;
+    font-size: 1.3em;
+    text-align: center;
+}
 
+.dropzone {
+    height: 200px;
+    display: table;
+    width: 100%;
+    background-color: #eee;
+    border: dotted 3px blue;
+    margin-bottom: 10px;
+}
+
+.texto-link {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+
+.texto-link.red {
+    text-decoration: underline;
+    color: red;
+}
+
+.container-archivos {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.lista-archivos {
+    list-style: none;
+    padding: 0;
+    margin: 0 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cuadro-azul {
+    border: 1px solid blue;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.icono-delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
