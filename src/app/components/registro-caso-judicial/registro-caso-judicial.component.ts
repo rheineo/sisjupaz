@@ -14,11 +14,11 @@ export interface SelectorItems {
 @Component({
   selector: 'app-registro-caso-judicial',
   templateUrl: './registro-caso-judicial.component.html',
-  styleUrls: ['./registro-caso-judicial.component.css']
+  styleUrls: ['./registro-caso-judicial.component.scss']
 })
 export class RegistroCasoJudicialComponent {
 
-  
+
 
   juzgadoFormGroup = this._formBuilder.group({
     juzgado: new FormControl('', Validators.required),
@@ -46,7 +46,7 @@ export class RegistroCasoJudicialComponent {
     // ... otros campos del segundo paso
   });
 
-  
+
 
   /*actividadesProcesalFormGroup = this._formBuilder.group({
     fecha: new FormControl('', Validators.required),
@@ -68,7 +68,7 @@ export class RegistroCasoJudicialComponent {
     documentoFirma: new FormControl('', Validators.required),
     // ... otros campos del segundo paso
   });
- 
+
   documentos: File[] = [];
   files: any[] = [];
   filteredOptions: Observable<SelectorItems[]> = of([]);
@@ -82,8 +82,8 @@ export class RegistroCasoJudicialComponent {
   maxSize = 32;
   uploading: boolean = false;
   // actividadesProcesales: any[] = [];
-  
-  
+
+
   lstJuzgado: SelectorItems[] = [{ name: 'Juzgado 1', value: 1 }, { name: 'Juzgado 2', value: 2 }, { name: 'Juzgado 3', value: 3 }];
   lstTipoProceso: SelectorItems[] = [
     {
@@ -112,7 +112,7 @@ export class RegistroCasoJudicialComponent {
     }
   ];
   lstTipoDocumento: SelectorItems[] = [{ name: 'Cédula', value: 1 }, { name: 'Pasaporte', value: 2 }, { name: 'Cedula de Extranjería', value: 3 }]
-  
+
 
   // Propiedades para el stepper
   steps = [
@@ -137,11 +137,11 @@ export class RegistroCasoJudicialComponent {
       formDisabled: false,
     },
   ];
-  
+
 
   constructor(private _formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>, private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef) { 
+    private cdr: ChangeDetectorRef) {
     this._adapter.setLocale('es');
 
     this.fileControl = new FormControl(this.files, [
@@ -154,7 +154,7 @@ export class RegistroCasoJudicialComponent {
       fecha: new FormControl('', Validators.required),
       actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
     }));
-    
+
     }
 
   ngOnInit() {
@@ -183,7 +183,7 @@ export class RegistroCasoJudicialComponent {
     // Forzar la actualización de estilos de los elementos agregados dinámicamente
     setTimeout(() => {
       // Realizar alguna operación mínima que obligue a Angular a renderizar nuevamente los elementos
-      
+
     });
   }
 
@@ -206,7 +206,7 @@ export class RegistroCasoJudicialComponent {
 
   inicializarControles(): void {
     // Inicializa los controles de formulario aquí
-    
+
     this.actividadesProcesalFormGroup = this._formBuilder.group({
       fecha: new FormControl('', Validators.required),
       actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
@@ -252,15 +252,15 @@ export class RegistroCasoJudicialComponent {
   }
 
   // Métodos para adjuntar documentos
-  onFileSelected() {    
-    this.fileControl.reset(null, { emitEvent: false }); 
+  onFileSelected() {
+    this.fileControl.reset(null, { emitEvent: false });
   }
 
   onFileSelected2(event: any): void {
     if (event?.target?.files) {
-      const files: FileList = event.target.files;      
+      const files: FileList = event.target.files;
       this.files = this.files ? this.files.concat(Array.from(files)) : Array.from(files);
-      
+
     } else {
       console.error("No se detectaron archivos seleccionados.");
     }

@@ -6,7 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.css']
+  styleUrls: ['./detalle.component.scss']
 })
 export class DetalleComponent {
 

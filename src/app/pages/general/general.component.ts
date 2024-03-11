@@ -5,14 +5,14 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
-  styleUrls: ['./general.component.css']
+  styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent {
   paises: PaisInterface[] = [];
   constructor ( public dataService: DataService) {
 
   }
-  ngOnInit() { 
+  ngOnInit() {
     this.dataService.getPaises()
     .then( paises => {
       this.paises = paises

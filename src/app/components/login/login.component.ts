@@ -5,7 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   hide = true;
@@ -20,7 +20,7 @@ export class LoginComponent {
     return this.email.hasError('email') ? 'No es un email válido' : '';
   }
 
-  getErrorMessagePassword() {    
+  getErrorMessagePassword() {
       return 'Debes ingresar la contraseña del usuario';
   }
 }
