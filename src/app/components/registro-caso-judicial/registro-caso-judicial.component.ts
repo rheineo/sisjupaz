@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, of, startWith } from 'rxjs';
 import { DateAdapter, ThemePalette } from '@angular/material/core';
 import { MaxSizeValidator } from '@angular-material-components/file-input';
@@ -57,16 +57,16 @@ export class RegistroCasoJudicialComponent {
 
   actividadesProcesalFormGroup: FormGroup;
 
-  actividadesProcesales: FormGroup[] = [];
-
+  actividadesProcesales: FormArray;
   decisionFormGroup = this._formBuilder.group({
-    fecha: new FormControl('', Validators.required),
-    tipo: new FormControl('', Validators.required),
-    observacion: new FormControl('', Validators.required),
-    decisionTomada: new FormControl('', Validators.required),
+    conciliacion: new FormControl('', Validators.required),
+    fechaDecision: new FormControl('', Validators.required),
+    decisionTomada: new FormControl('', [Validators.required, Validators.maxLength(500)]),
     derivacion: new FormControl('', Validators.required),
+    tipoDerivacion: new FormControl('', Validators.required),
     documentoFirma: new FormControl('', Validators.required),
-    // ... otros campos del segundo paso
+    
+    // ... otros campos del quinto paso
   });
  
   documentos: File[] = [];
@@ -75,13 +75,13 @@ export class RegistroCasoJudicialComponent {
   activeStepIndex = 0;
   // para manipular archivos
   color: ThemePalette = 'primary';
+  
   disabled: boolean = false;
   multiple: boolean = true;
   accept: string = "image/*,.pdf";
   fileControl: FormControl;
   maxSize = 32;
   uploading: boolean = false;
-  // actividadesProcesales: any[] = [];
   
   
   lstJuzgado: SelectorItems[] = [{ name: 'Juzgado 1', value: 1 }, { name: 'Juzgado 2', value: 2 }, { name: 'Juzgado 3', value: 3 }];
@@ -111,7 +111,9 @@ export class RegistroCasoJudicialComponent {
       value: 6
     }
   ];
-  lstTipoDocumento: SelectorItems[] = [{ name: 'Cédula', value: 1 }, { name: 'Pasaporte', value: 2 }, { name: 'Cedula de Extranjería', value: 3 }]
+  lstTipoDocumento: SelectorItems[] = [{ name: 'Cédula', value: 1 }, { name: 'Pasaporte', value: 2 }, { name: 'Cédula de Extranjería', value: 3 }];
+  lstConciliacion: SelectorItems[] = [{ name: 'Conciliación 1', value: 1 }, { name: 'Conciliación 2', value: 2 }, { name: 'Conciliación 3', value: 3 }];
+  lstDerivacion: SelectorItems[] = [{ name: 'Derivación 1', value: 1 }, { name: 'Derivación 2', value: 2 }, { name: 'Derivación 3', value: 3 }];
   
 
   // Propiedades para el stepper
@@ -149,11 +151,17 @@ export class RegistroCasoJudicialComponent {
       MaxSizeValidator(this.maxSize * 1024 * 1024)
     ]);
 
-    this.actividadesProcesalFormGroup = this._formBuilder.group({});
-    this.actividadesProcesales.push(this._formBuilder.group({
-      fecha: new FormControl('', Validators.required),
-      actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
-    }));
+    this.actividadesProcesales = this._formBuilder.array([
+      this.crearActividadProcesal()
+    ]);
+    this.actividadesProcesalFormGroup = this._formBuilder.group({
+      campoNoRepetido: [''], 
+      actividadesProcesales: this.actividadesProcesales
+    });
+    // this.actividadesProcesales.push(this._formBuilder.group({
+    //   fecha: new FormControl('', Validators.required),
+    //   actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
+    // }));
     
     }
 
@@ -176,7 +184,7 @@ export class RegistroCasoJudicialComponent {
       this.files.push(...files);
     });
 
-    this.inicializarControles();
+    // this.inicializarControles();
   }
 
   ngAfterViewInit(): void {
@@ -204,28 +212,21 @@ export class RegistroCasoJudicialComponent {
     return this.lstJuzgado.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  inicializarControles(): void {
-    // Inicializa los controles de formulario aquí
-    
-    this.actividadesProcesalFormGroup = this._formBuilder.group({
-      fecha: new FormControl('', Validators.required),
-      actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
-      // ... otros campos del segundo paso
+  private crearActividadProcesal() {
+    return this._formBuilder.group({
+      fecha: ['', Validators.required],
+      actividadProcesal: ['', [Validators.required, Validators.maxLength(100)]]
     });
+  
   }
 
   agregarActividadProcesal(): void {
-    const nuevaActividad = this._formBuilder.group({
-      fecha: new FormControl('', Validators.required),
-      actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
-    });
-
-    this.actividadesProcesales.push(nuevaActividad);
+    this.actividadesProcesales.push(this.crearActividadProcesal());
     this.cdr.detectChanges();
   }
 
   eliminarActividadProcesal(index: number): void {
-    this.actividadesProcesales.splice(index, 1);
+    this.actividadesProcesales.removeAt(index);
   }
 
   // Métodos para navegar entre pasos

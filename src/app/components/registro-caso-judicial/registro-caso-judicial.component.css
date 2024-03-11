@@ -121,7 +121,7 @@ input[type="file"]{
 }
 
 .dropzone {
-    height: 200px;
+    height: 60px;
     display: table;
     width: 100%;
     background-color: #eee;
