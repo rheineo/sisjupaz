@@ -28,6 +28,7 @@ import { DatosGeneralesPageComponent } from './pages/datos-generales-page/datos-
 import { LoginComponent } from './components/login/login.component';
 import { RegistroCasoJudicialComponent } from './components/registro-caso-judicial/registro-caso-judicial.component';
 import { DatePipe } from '@angular/common';
+import { RegistroCasoNotarialComponent } from './components/registro-caso-notarial/registro-caso-notarial.component';
 
 
 
@@ -39,7 +40,8 @@ import { DatePipe } from '@angular/common';
     DatosGeneralesFormComponent,
     DatosGeneralesPageComponent,
     LoginComponent,
-    RegistroCasoJudicialComponent
+    RegistroCasoJudicialComponent,
+    RegistroCasoNotarialComponent
   ],
   imports: [
     BrowserModule,
