@@ -14,11 +14,11 @@ export interface SelectorItems {
 @Component({
   selector: 'app-registro-caso-judicial',
   templateUrl: './registro-caso-judicial.component.html',
-  styleUrls: ['./registro-caso-judicial.component.css']
+  styleUrls: ['./registro-caso-judicial.component.scss']
 })
 export class RegistroCasoJudicialComponent {
 
-  
+
 
   juzgadoFormGroup = this._formBuilder.group({
     juzgado: new FormControl('', Validators.required),
@@ -55,7 +55,7 @@ export class RegistroCasoJudicialComponent {
     tipoDerivacion: new FormControl('', Validators.required),
     documentoFirma: new FormControl('', Validators.required),
   });
- 
+
   documentos: File[] = [];
  
   filteredOptions: Observable<SelectorItems[]> = of([]);
@@ -132,11 +132,11 @@ export class RegistroCasoJudicialComponent {
       formDisabled: false,
     },
   ];
-  
+
 
   constructor(private _formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>, private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef) { 
+    private cdr: ChangeDetectorRef) {
     this._adapter.setLocale('es');
 
     this.fileControlFVR = new FormControl(this.filesFVR, [
@@ -192,7 +192,7 @@ export class RegistroCasoJudicialComponent {
     // Forzar la actualización de estilos de los elementos agregados dinámicamente
     setTimeout(() => {
       // Realizar alguna operación mínima que obligue a Angular a renderizar nuevamente los elementos
-      
+
     });
   }
 

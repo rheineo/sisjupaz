@@ -6,7 +6,7 @@ import { FormFiles } from 'src/app/interfaces/form-files.interface';
 @Component({
   selector: 'app-datos-generales-form',
   templateUrl: './datos-generales-form.component.html',
-  styleUrls: ['./datos-generales-form.component.css']
+  styleUrls: ['./datos-generales-form.component.scss']
 })
 export class DatosGeneralesFormComponent implements OnInit {
 
