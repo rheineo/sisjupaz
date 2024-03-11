@@ -23,15 +23,13 @@ export class RegistroCasoJudicialComponent {
   juzgadoFormGroup = this._formBuilder.group({
     juzgado: new FormControl('', Validators.required),
     nombrejuez: new FormControl({ value: 'Ana Gabriela', disabled: true }),
-    apellidojuez: new FormControl({ value: 'Rodriguez Martinez', disabled: true }),
-    // ... otros campos del primer paso
+    apellidojuez: new FormControl({ value: 'Rodriguez Martinez', disabled: true }),   
   });
 
   toppings = new FormControl('');
   datosSolicitudFormGroup = this._formBuilder.group({
     fecha: new FormControl('', Validators.required),
     tipoProceso: new FormControl('')
-    // ... otros campos del segundo paso
   });
 
   datosInvolucradosFormGroup = this._formBuilder.group({
@@ -43,17 +41,8 @@ export class RegistroCasoJudicialComponent {
     apellidoDenunciado: new FormControl('', Validators.required),
     tipoDocumentoDenunciado: new FormControl('', Validators.required),
     numeroDocumentoDenunciado: new FormControl('', Validators.required)
-    // ... otros campos del segundo paso
   });
 
-  
-
-  /*actividadesProcesalFormGroup = this._formBuilder.group({
-    fecha: new FormControl('', Validators.required),
-    actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
-    // ... otros campos del segundo paso
-  });
-  */
 
   actividadesProcesalFormGroup: FormGroup;
 
@@ -65,21 +54,25 @@ export class RegistroCasoJudicialComponent {
     derivacion: new FormControl('', Validators.required),
     tipoDerivacion: new FormControl('', Validators.required),
     documentoFirma: new FormControl('', Validators.required),
-    
-    // ... otros campos del quinto paso
   });
  
   documentos: File[] = [];
-  files: any[] = [];
+ 
   filteredOptions: Observable<SelectorItems[]> = of([]);
   activeStepIndex = 0;
   // para manipular archivos
-  color: ThemePalette = 'primary';
-  
+  color: ThemePalette = 'primary';  
   disabled: boolean = false;
   multiple: boolean = true;
   accept: string = "image/*,.pdf";
-  fileControl: FormControl;
+  fileControlFVR: FormControl;
+  fileControlDocProcesal: FormControl;
+  fileControlFirma: FormControl;
+  filesFVR: any[] = [];
+  filesDocProcesal: any[] = [];
+  filesFirma: any[] = [];
+
+
   maxSize = 32;
   uploading: boolean = false;
   
@@ -146,10 +139,22 @@ export class RegistroCasoJudicialComponent {
     private cdr: ChangeDetectorRef) { 
     this._adapter.setLocale('es');
 
-    this.fileControl = new FormControl(this.files, [
+    this.fileControlFVR = new FormControl(this.filesFVR, [
       Validators.required,
       MaxSizeValidator(this.maxSize * 1024 * 1024)
     ]);
+
+    this.fileControlDocProcesal = new FormControl(this.filesDocProcesal, [
+      Validators.required,
+      MaxSizeValidator(this.maxSize * 1024 * 1024)
+    ]);
+
+    this.fileControlFirma = new FormControl(this.filesFirma, [
+      Validators.required,
+      MaxSizeValidator(this.maxSize * 1024 * 1024)
+    ]);
+
+    
 
     this.actividadesProcesales = this._formBuilder.array([
       this.crearActividadProcesal()
@@ -157,11 +162,7 @@ export class RegistroCasoJudicialComponent {
     this.actividadesProcesalFormGroup = this._formBuilder.group({
       campoNoRepetido: [''], 
       actividadesProcesales: this.actividadesProcesales
-    });
-    // this.actividadesProcesales.push(this._formBuilder.group({
-    //   fecha: new FormControl('', Validators.required),
-    //   actividadProcesal: new FormControl('', [Validators.required, Validators.maxLength(100)])
-    // }));
+    });   
     
     }
 
@@ -180,9 +181,9 @@ export class RegistroCasoJudicialComponent {
     );
 
     // Agregar archivos seleccionados a this.files
-    this.fileControl.valueChanges.subscribe((files: any[]) => {
-      this.files.push(...files);
-    });
+    // this.fileControlFVR.valueChanges.subscribe((files: any[]) => {
+      // this.filesFVR.push(...files);
+    // });
 
     // this.inicializarControles();
   }
@@ -252,25 +253,53 @@ export class RegistroCasoJudicialComponent {
     this.activeStepIndex = 0;
   }
 
-  // Métodos para adjuntar documentos
-  onFileSelected() {    
-    this.fileControl.reset(null, { emitEvent: false }); 
-  }
-
-  onFileSelected2(event: any): void {
+  onFileSelectedFVR(event: any): void {
     if (event?.target?.files) {
       const files: FileList = event.target.files;      
-      this.files = this.files ? this.files.concat(Array.from(files)) : Array.from(files);
+      this.filesFVR = this.filesFVR ? this.filesFVR.concat(Array.from(files)) : Array.from(files);
       
     } else {
       console.error("No se detectaron archivos seleccionados.");
     }
   }
 
+  onDeleteFVR(file: any) {
+    this.filesFVR = this.filesFVR.filter(f => f.name !== file.name);
+  }
+
+  onFileSelectedDocProcesal(event: any): void {
+    if (event?.target?.files) {
+      const files: FileList = event.target.files;
+      this.filesDocProcesal = this.filesDocProcesal ? this.filesDocProcesal.concat(Array.from(files)) : Array.from(files);
+
+    } else {
+      console.error("No se detectaron archivos seleccionados.");
+    }
+  }
+
+  onDeleteDocProcesal(file: any) {
+    this.filesDocProcesal = this.filesDocProcesal.filter(f => f.name !== file.name);
+  }
+
+  onFileSelectedFirma(event: any): void {
+    if (event?.target?.files) {
+      const files: FileList = event.target.files;
+      this.filesFirma = this.filesFirma ? this.filesFirma.concat(Array.from(files)) : Array.from(files);
+
+    } else {
+      console.error("No se detectaron archivos seleccionados.");
+    }
+  }
+
+  onDeleteDocFirma(file: any) {
+    this.filesDocProcesal = this.filesDocProcesal.filter(f => f.name !== file.name);
+  }
+
+
 
   onUpload() {
     this.uploading = true;
-    for (let file of this.files) {
+    for (let file of this.filesFVR) {
       const filePath = `uploads/${file.name}`;
       // const ref = this.storage.ref(filePath);
       // ref.put(file).on('state_changed', (snapshot) => {
@@ -284,7 +313,5 @@ export class RegistroCasoJudicialComponent {
     }
   }
 
-  onDelete(file: any) {
-    this.files = this.files.filter(f => f.name !== file.name);
-  }
+  
 }

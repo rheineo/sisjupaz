@@ -127,12 +127,12 @@
                     <div class="text-wrapper">
                         <div class="centered">
                             <label for="fileInput">
-                                <div class="texto-link" (click)="onFileSelected2($event)">
+                                <div class="texto-link" (click)="onFileSelectedFVR($event)">
                                     <mat-icon class="mx-2">upload</mat-icon>
                                     <span>Seleccionar archivo</span>
                                 </div>
                             </label>
-                            <input type="file" id="fileInput" multiple (change)="onFileSelected2($event)">
+                            <input type="file" id="fileInput" multiple (change)="onFileSelectedFVR($event)">
 
                         </div>
                     </div>
@@ -140,17 +140,13 @@
             </div>
 
 
-            <!-- <ngx-mat-file-input #removableInput [formControl]="fileControl" (change)="onFileSelected()"
-                [multiple]="multiple" [accept]="accept" [color]="color">
-            </ngx-mat-file-input> -->
-
             <div class="container-archivos">
-                <ul *ngFor="let file of files" class="lista-archivos">
+                <ul *ngFor="let file of filesFVR" class="lista-archivos">
                     <div class="cuadro-azul">
                         <li class="archivo">
                             <mat-icon [color]="color">description</mat-icon>
                             <span style="margin-right: 20px;">{{file.name}}</span>
-                            <mat-icon (click)="onDelete(file)" [color]="color" class="icono-delete">clear</mat-icon>
+                            <mat-icon (click)="onDeleteFVR(file)" [color]="color" class="icono-delete">clear</mat-icon>
                         </li>
                     </div>
                 </ul>
@@ -314,12 +310,12 @@
                     <div class="text-wrapper">
                         <div class="centered">
                             <label for="campoNoRepetido">
-                                <div class="texto-link" (click)="onFileSelected2($event)">
+                                <div class="texto-link" (click)="onFileSelectedDocProcesal($event)">
                                     <mat-icon class="mx-2">upload</mat-icon>
                                     <span>Seleccionar archivo</span>
                                 </div>
                             </label>
-                            <input type="file" id="campoNoRepetido" multiple (change)="onFileSelected2($event)">
+                            <input type="file" id="campoNoRepetido" multiple (change)="onFileSelectedDocProcesal($event)">
 
                         </div>
                     </div>
@@ -327,29 +323,16 @@
             </div>
 
             <div class="container-archivos">
-                <ul *ngFor="let file of files" class="lista-archivos">
+                <ul *ngFor="let file of filesDocProcesal" class="lista-archivos">
                     <div class="cuadro-azul">
                         <li class="archivo">
                             <mat-icon [color]="color">description</mat-icon>
                             <span style="margin-right: 20px;">{{file.name}}</span>
-                            <mat-icon (click)="onDelete(file)" [color]="color" class="icono-delete">clear</mat-icon>
+                            <mat-icon (click)="onDeleteDocFirma(file)" [color]="color" class="icono-delete">clear</mat-icon>
                         </li>
                     </div>
                 </ul>
             </div>
-            <!--
-            <ngx-mat-file-input #removableInput [formControl]="fileControl" (change)="onFileSelected()"
-                [multiple]="multiple" [accept]="accept" [color]="color">
-            </ngx-mat-file-input>
-
-            <ul *ngFor="let file of files">
-                <li>
-                    <mat-icon [color]="color">description</mat-icon>
-                    {{file.name}}
-                    <mat-icon (click)="onDelete(file)" [color]="color" style="cursor: pointer">delete</mat-icon>
-                </li>
-            </ul>
-        -->
 
             <div class="buttons-footer">
                 <div class="left-buttons">
@@ -436,24 +419,24 @@
                     <div class="text-wrapper">
                         <div class="centered">
                             <label for="documentoFirma">
-                                <div class="texto-link" (click)="onFileSelected2($event)">
+                                <div class="texto-link" (click)="onFileSelectedFirma($event)">
                                     <mat-icon class="mx-2">upload</mat-icon>
                                     <span>Seleccionar archivo</span>
                                 </div>
                             </label>
-                            <input type="file" id="documentoFirma" multiple (change)="onFileSelected2($event)">
+                            <input type="file" id="documentoFirma" (change)="onFileSelectedFirma($event)">
                         </div>
                     </div>
                 </div>
 
                 
             <div class="container-archivos">
-                <ul *ngFor="let file of files" class="lista-archivos">
+                <ul *ngFor="let file of filesFirma" class="lista-archivos">
                     <div class="cuadro-azul">
                         <li class="archivo">
                             <mat-icon [color]="color">description</mat-icon>
                             <span style="margin-right: 20px;">{{file.name}}</span>
-                            <mat-icon (click)="onDelete(file)" [color]="color" class="icono-delete">clear</mat-icon>
+                            <mat-icon (click)="onDeleteDocFirma(file)" [color]="color" class="icono-delete">clear</mat-icon>
                         </li>
                     </div>
                 </ul>
